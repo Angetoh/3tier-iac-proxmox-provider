@@ -1,0 +1,6 @@
+---
+# defaults file for Roles/deploy_app
+
+
+app_user: "appuser"
+deploy_path: "/home/{{ app_user }}/html/mon_site"

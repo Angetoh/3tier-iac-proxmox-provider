@@ -1,0 +1,25 @@
+---
+# handlers file for Roles/deploy_app
+
+-  name: restart nginx
+   service:
+    name: nginx
+    state: restarted
+
+
+-  name: start nginx
+   service:
+    name: nginx
+    state: started
+
+
+-  name: enable nginx
+   service:
+    name: nginx
+    enabled: yes
+
+
+-  name: stop nginx
+   service:
+    name: nginx
+    state: stopped

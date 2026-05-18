@@ -1,0 +1,68 @@
+---
+# tasks file for Roles/deploy_app
+-  name: create app user
+   user:
+    name: "{{ app_user }}"
+    state: present
+
+
+-  name: install nginx
+   dnf:
+    name: 
+      - nginx
+      - git
+    state: present
+    update_cache: yes
+
+-  name: clone app repository
+   git:
+    repo: "https://github.com/cloudacademy/static-website-example.git"
+    dest: "{{ deploy_path }}"
+    version: master
+    update: no
+   notify: enable nginx
+
+-  name: site configuration
+   template:
+    src: nginx_site.conf.j2
+    dest: /etc/nginx/conf.d/mon_site.conf
+   notify: restart nginx
+
+-  name: config nginx
+   template:
+    src: nginx_conf.j2
+    dest: /etc/nginx/nginx.conf
+   notify: restart nginx
+
+- name: corriger les permissions du home appuser
+  file:
+    path: "/home/{{ app_user }}"
+    mode: "0755"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+
+# chmod → module file
+- name: corriger les permissions
+  file:
+    path: "{{ deploy_path }}"
+    mode: "0755"
+    recurse: yes
+
+
+- name: ouvrir port HTTP dans firewalld
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: true
+
+# chcon → module sefcontext
+- name: contexte SELinux
+  community.general.sefcontext:
+    target: "{{ deploy_path }}(/.*)?"
+    setype: httpd_sys_content_t
+    state: present
+
+- name: appliquer le contexte SELinux
+  command: restorecon -R "{{ deploy_path }}"
+  changed_when: false
