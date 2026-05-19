@@ -5,8 +5,6 @@
     name: postgresql-server
     state: present 
 
-
-
 -  name: create initdb 
    command: postgresql-setup --initdb
    args:

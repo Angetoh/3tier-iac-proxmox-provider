@@ -1,2 +1,7 @@
 ---
 # defaults file for deploy_flask
+port: 5000
+app_dir: /opt/flask_app
+user: flask
+group: flask
+service_name: flask_app

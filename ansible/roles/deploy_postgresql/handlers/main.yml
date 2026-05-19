@@ -1,2 +1,7 @@
 ---
 # handlers file for deploy_postgresql
+
+- name: reload postgresql
+  service:
+    name: postgresql
+    state: reloaded
