@@ -1,2 +1,8 @@
 ---
 # defaults file for deploy_postgresql
+
+db_user: flask_user
+db_name: flask_db
+db_port: 5432
+db_password: "changeme"
+flask_ip: "192.168.126.141"

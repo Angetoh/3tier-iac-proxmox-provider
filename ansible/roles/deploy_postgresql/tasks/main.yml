@@ -1,2 +1,45 @@
 ---
 # tasks file for deploy_postgresql
+-  name: install postgresql-server
+   dnf: 
+    name: postgresql-server
+    state: present 
+
+
+
+-  name: create initdb 
+   command: postgresql-setup --initdb
+   args:
+     creates: /var/lib/pgsql/data/PG_VERSION
+
+-  name: start the service
+   service: 
+     name: postgresql
+     state: started
+     enabled: true
+
+
+-  name: deployer pg_hba.conf 
+   template: 
+     src: "/ansible/roles/deploy_postgresql/templates/pg_hba.conf.j2"
+     dest: "/var/lib/pgsql/data/pg_hba.conf"
+     owner: postgres 
+     group: postgres 
+     mode: "0600"
+   notify: reload postgresql
+
+-  name: create_flask user 
+   postgresql_user: 
+     name: "{{ db_user }}"
+     state: present
+     password: "{{ db_password }}"
+   become: true 
+   become_user: postgres
+
+
+-  name: create flask_db
+   postgresql_db:
+     name: "{{db_name}}"
+     state: present 
+   become: true 
+   become_user: postgres

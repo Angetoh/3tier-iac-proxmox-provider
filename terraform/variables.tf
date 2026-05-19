@@ -29,3 +29,11 @@ variable "Vms_ips" {
     vmid = number
   }))
 }
+
+variable "dns" {
+  type = string
+}
+
+variable "gateway" {
+  type = string
+}
