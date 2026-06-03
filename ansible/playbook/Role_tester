@@ -1,0 +1,7 @@
+---
+- name: Role Tester
+  hosts: app
+  become: true
+
+  roles:
+    - deploy_flask
