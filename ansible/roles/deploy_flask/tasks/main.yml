@@ -7,6 +7,11 @@
        - python3-pip
      state: present
 
+
+-  name: create group
+   group:
+     name: "{{ group }}"
+
 -  name: create flask user and group
    user:
      name: "{{ user }}"
@@ -22,10 +27,10 @@
      group: "{{ group }}"
      mode: "0755"
 
--  name: install flask
+-  name: create virtualenv and install flask
    pip:
-     name: flask
-     state: present 
+     virtualenv: "{{ app_dir }}/venv"
+     name: flask  
 
 -  name: app.py template
    template:
