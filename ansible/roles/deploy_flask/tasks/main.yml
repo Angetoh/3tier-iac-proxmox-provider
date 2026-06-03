@@ -1,10 +1,11 @@
 ---
 # tasks file for deploy_flask
--  name: install python3 + pip
+-  name: install python3 + pip 
    dnf:
      name: 
        - python3
        - python3-pip
+
      state: present
 
 
@@ -26,6 +27,12 @@
      owner: "{{ user }}"
      group: "{{ group }}"
      mode: "0755"
+
+- name: create virtualenv
+  command: python3 -m venv {{ app_dir }}/venv
+  args:
+    creates: "{{ app_dir }}/venv"
+    
 
 -  name: create virtualenv and install flask
    pip:

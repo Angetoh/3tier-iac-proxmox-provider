@@ -1,0 +1,6 @@
+---
+- name: Role Tester
+  hosts: app
+  become: true
+  roles:
+    - role: /home/automation/3tier-iac-proxmox-provider/ansible/roles/deploy_flask
