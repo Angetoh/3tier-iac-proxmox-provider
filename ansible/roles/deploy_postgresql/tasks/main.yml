@@ -10,6 +10,16 @@
    args:
      creates: /var/lib/pgsql/data/PG_VERSION
 
+-  name: deployer pg_hba.conf 
+   template: 
+     src: "pg_hba.conf.j2"
+     dest: "/var/lib/pgsql/data/pg_hba.conf"
+     owner: postgres 
+     group: postgres 
+     mode: "0600"
+   notify: reload postgresql
+
+
 -  name: start the service
    service: 
      name: postgresql
@@ -17,14 +27,7 @@
      enabled: true
 
 
--  name: deployer pg_hba.conf 
-   template: 
-     src: "/ansible/roles/deploy_postgresql/templates/pg_hba.conf.j2"
-     dest: "/var/lib/pgsql/data/pg_hba.conf"
-     owner: postgres 
-     group: postgres 
-     mode: "0600"
-   notify: reload postgresql
+
 
 -  name: create_flask user 
    postgresql_user: 
@@ -41,3 +44,14 @@
      state: present 
    become: true 
    become_user: postgres
+
+
+- name: grant privileges to flask_user on flask_db
+  postgresql_privs:
+    database: "{{ db_name }}"
+    role: "{{ db_user }}"
+    privs: ALL
+    type: database
+    state: present
+  become: true
+  become_user: postgres

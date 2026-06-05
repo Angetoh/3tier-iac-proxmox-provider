@@ -1,6 +1,6 @@
 ---
 - name: Role Tester
-  hosts: app
+  hosts: db
   become: true
   roles:
-    - role: /home/automation/3tier-iac-proxmox-provider/ansible/roles/deploy_flask
+    - role: /home/automation/3tier-iac-proxmox-provider/ansible/roles/deploy_postgresql
