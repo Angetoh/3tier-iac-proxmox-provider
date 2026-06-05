@@ -36,5 +36,5 @@ Terraform provisions the 3 VMs, generates the Ansible inventory and automaticall
 
 ## Author
 
-Ange — Infrastructure Automation Engineer
+Ange TOH — Infrastructure Automation Engineer
 Côte d'Ivoire 🇨🇮
