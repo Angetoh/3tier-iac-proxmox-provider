@@ -59,3 +59,11 @@
      name: "{{ service_name }}"
      state: started
      enabled: true  
+
+
+- name: open port 5000 in firewall
+  firewalld:
+    port: 5000/tcp
+    permanent: true
+    state: enabled
+    immediate: true
