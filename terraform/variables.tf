@@ -37,3 +37,9 @@ variable "dns" {
 variable "gateway" {
   type = string
 }
+
+
+variable "ci_password" {
+  type      = string
+  sensitive = true
+}

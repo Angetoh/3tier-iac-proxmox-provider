@@ -2,7 +2,9 @@
 # tasks file for deploy_postgresql
 -  name: install postgresql-server
    dnf: 
-    name: postgresql-server
+    name: 
+      - postgresql-server
+      - python3-psycopg2
     state: present 
 
 -  name: create initdb 
@@ -25,9 +27,6 @@
      name: postgresql
      state: started
      enabled: true
-
-
-
 
 -  name: create_flask user 
    postgresql_user: 

@@ -2,6 +2,7 @@ resource "proxmox_vm_qemu" "vm" {
   # Identité
   name        = var.vm_name
   target_node = "monlab"
+  vmid        = var.vmid
 
   # Template source (clone)
   clone       = "AlmaLinux-Gold-Template"
@@ -9,7 +10,8 @@ resource "proxmox_vm_qemu" "vm" {
   # Ressources
   cores       = var.cores
   memory      = var.memory
-
+  vm_state    = "running"
+  agent   = 1
   # Cloud-init
   os_type     = "cloud-init"
   ipconfig0   = "ip=${var.ip_address}/24,gw=${var.gateway}"

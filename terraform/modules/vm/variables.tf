@@ -52,3 +52,8 @@ variable "dns" {
   description = "Serveur DNS"
   default     = "8.8.8.8"
 }
+
+variable "vmid" {
+  type        = number
+  description = "ID de la VM dans Proxmox"
+}

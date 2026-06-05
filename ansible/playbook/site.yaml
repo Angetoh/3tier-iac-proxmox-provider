@@ -1,0 +1,16 @@
+
+---
+- name: Deploy Web Server
+  hosts: Web-Server
+  roles:
+    - deploy_app_nginx
+
+- name: Deploy App Server
+  hosts: App-Server
+  roles:
+    - deploy_flask
+
+- name: Deploy DB Server
+  hosts: BD-Server
+  roles:
+    - deploy_postgresql
